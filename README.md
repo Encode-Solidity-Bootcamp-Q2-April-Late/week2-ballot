@@ -47,5 +47,22 @@ Transaction completed at block 3446128 with block hash Oxe4de9c50793556bbdb41866
 ### Casting Votes
 
 ### Delegating Votes
+ballot % yarn hardhat run scripts/voterTest.ts
+✔ Enter the contract address: … 0xa8fDFf47F492bF96A723eCe2e6d7B994AA22A60A
+✔ Enter the ABI: … [{"inputs":[{"internalType":"bytes32[]","name":"proposalNames","type":"bytes32[]"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"chairperson","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"}],"name":"delegate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getNumProposals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"voter","type":"address"}],"name":"giveRightToVote","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"proposals","outputs":[{"internalType":"bytes32","name":"name","type":"bytes32"},{"internalType":"uint256","name":"voteCount","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"proposal","type":"uint256"}],"name":"vote","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"voters","outputs":[{"internalType":"uint256","name":"weight","type":"uint256"},{"internalType":"bool","name":"voted","type":"bool"},{"internalType":"address","name":"delegate","type":"address"},{"internalType":"uint256","name":"vote","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"winnerName","outputs":[{"internalType":"bytes32","name":"winnerName","type":"bytes32"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"winningProposal","outputs":[{"internalType":"uint256","name":"winningProposal","type":"uint256"}],"stateMutability":"view","type":"function"}]
+Connected to wallet address 0x95C07028025848f840BA1d7695266E6229eae853
+Account balance: 1.485102313932405872 ETH
+Proposals: 
+Proposal N. 0: Tea
+Proposal N. 1: Coffee
+Proposal N. 2: Kombucha
+Proposal N. 3: CocaCola
+✔ Enter your address: … 0x95C07028025848f840BA1d7695266E6229eae853
+Address 0x95C07028025848f840BA1d7695266E6229eae853 has voting rights.
+✔ Enter 1 to vote, 2 to delegate, or anything else to quit: … 2
+✔ Enter the address to delegate your vote to: … 0x5f6AEB64b5F61dF1274A45B53F160B68b09A6608
+Transaction submitted with hash: 0xe779f66ddaf894e72d51d28ac7efa87cf5a404e02cfe5169c36bc7e062383528
+✔ Enter 1 to query the winning proposal, or anything else to quit: … 1
+The winning proposal is: Kombucha
 
 ### Querying Results
