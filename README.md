@@ -1,5 +1,5 @@
 # Week 2 Assignment
-
+## We tried using Goerli testnet and failed due to network congestion and high gas prices. We then switched to Sepolia and added a gas limit and found success. ##
 ### Voting Rights
 
 PS C: \Users\Zacha\ Fresh\scripts> yarn run ts-node -files Ballottest.ts Tea Coffee Kombucha Coca
