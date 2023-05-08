@@ -1,5 +1,6 @@
 # Week 2 Assignment 
 
+
 ## Voting Rights
 
 ## Casting Votes 
