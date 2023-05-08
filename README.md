@@ -1,5 +1,5 @@
 # Week 2 Assignment - Group 9
-Group Members: Kit Sidhu, Hussam Alsaliti, Zachary Halaby, Xuelan Wu
+Group Members: Hussam Alsaliti, Zachary Halaby, Xuelan Wu, Kit Sidhu
 
 ### We tried using Goerli testnet and failed due to network congestion and high gas prices. We then switched to Sepolia and added a gas limit and found success. ##
 ### Voting Rights
