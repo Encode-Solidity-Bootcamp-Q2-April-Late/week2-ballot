@@ -1,7 +1,7 @@
 import { Ballot, Ballot__factory, MyERC20Votes, MyERC20Votes__factory } from "../typechain-types";
 
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { ethers } from "hardhat";
+import { ethers,network } from "hardhat";
 import { expect } from "chai";
 
 
@@ -89,38 +89,37 @@ describe("Tokenized Ballot Test", function () {
              await votingTokenContract.connect(acc1).transfer(acc2.address, TRANSFER_AMOUNT);
              await votingTokenContract.connect(acc1).transfer(acc3.address, TRANSFER_AMOUNT);
              await votingTokenContract.delegate(acc2.address);
-             await votingTokenContract.delegate(acc3.address);
-             
+             await votingTokenContract.delegate(acc3.address);          
              const votingPowerAcc2 =  await votingTokenContract.getVotes(acc2.address);
-             const votingPowerAcc3 =  await votingTokenContract.getVotes(acc3.address);
-            console.log("Acc2 voting power is ",votingPowerAcc2.toString());
-            console.log("Acc3 voting power is ",votingPowerAcc3.toString());
-            const receipt = ballotContract.deployTransaction.wait();
-            console.log(`contract deployed at ${ballotContract.address}at block ${(await receipt).blockNumber}`);
-            const proposal0 = await ballotContract.proposals(0);
-            const proposal1 = await ballotContract.proposals(1);
-            await ballotContract.connect(acc2).vote(0, ethers.utils.parseEther("10")); // acc2 votes 10 tokens on proposal 0
-            await ballotContract.connect(acc3).vote(1, ethers.utils.parseEther("10")); // acc3 votes 10 tokens on proposal 1
-            console.log("Proposal 0 vote count after voting: ", proposal0.voteCount.toString());
-            console.log("Proposal 1 vote count after voting: ", proposal1.voteCount.toString());
+             const votingPowerAcc3 =  await votingTokenContract.getVotes(acc3.address);                    
+             console.log("Acc2 voting power is ",votingPowerAcc2.toString());
+            console.log("Acc3 voting power is ",votingPowerAcc3.toString());  
+            await ballotContract.connect(acc2).vote(0, ethers.utils.parseEther("10"));  
+             await ballotContract.connect(acc3).vote(1, ethers.utils.parseEther("10")); // acc3 votes 10 tokens on proposal 1
+    const proposal0 = await ballotContract.proposals(0);
+    const proposal1 = await ballotContract.proposals(1);
+    
+    console.log("Proposal 0 vote count after voting: ", proposal0.voteCount.toString());
+    console.log("Proposal 1 vote count after voting: ", proposal1.voteCount.toString());
         });
     
-        // it("Should correctly tally votes on each proposal", async function () {
-        //     await votingTokenContract.connect(acc1).mint(acc1.address, MINT_AMOUNT);
-        //     const acc1Balance = await votingTokenContract.balanceOf(acc1.address);
-        //     console.log("Acc1 balance before transfer: ", acc1Balance.toString());
-        //     await votingTokenContract.connect(acc1).transfer(acc2.address, TRANSFER_AMOUNT);
-        //     await votingTokenContract.connect(acc1).transfer(acc3.address, TRANSFER_AMOUNT);
-        //     await ballotContract.connect(acc2).vote(0, ethers.utils.parseEther("10")); // acc2 votes 10 tokens on proposal 0
-        //     await ballotContract.connect(acc3).vote(1, ethers.utils.parseEther("10")); // acc3 votes 10 tokens on proposal 1
-        //     const proposal0 = await ballotContract.proposals(0);
-        //     const proposal1 = await ballotContract.proposals(1);  
-        //     console.log("Proposal 0 vote count after voting: ", proposal0.voteCount.toString());
-        //     console.log("Proposal 1 vote count after voting: ", proposal1.voteCount.toString());
-        //     console.log("Final vote count for proposal 0: ", proposal0.voteCount.toString());
-        //     console.log("Final vote count for proposal 1: ", proposal1.voteCount.toString());
-        //     expect(proposal0.voteCount).to.equal(ethers.utils.parseEther("20")); // acc1 and acc2 both voted 10 tokens on proposal 0
-        //     expect(proposal1.voteCount).to.equal(ethers.utils.parseEther("10")); // acc3 voted 10 tokens on proposal 1
-        // });
+        it("Should correctly tally votes on each proposal", async function () {
+            await votingTokenContract.connect(acc1).mint(acc1.address, MINT_AMOUNT);
+            const acc1Balance = await votingTokenContract.balanceOf(acc1.address);
+            console.log("Acc1 balance before transfer: ", acc1Balance.toString());
+            await votingTokenContract.connect(acc1).transfer(acc2.address, TRANSFER_AMOUNT);
+            await votingTokenContract.connect(acc1).transfer(acc3.address, TRANSFER_AMOUNT);
+            await ballotContract.connect(acc1).vote(0, ethers.utils.parseEther("10")); // acc1 votes 10 tokens on proposal 0
+            await ballotContract.connect(acc2).vote(0, ethers.utils.parseEther("10")); // acc2 voted 10 tokens on proposal 0
+            await ballotContract.connect(acc3).vote(1, ethers.utils.parseEther("10")); // acc3 votes 10 tokens on proposal 1
+            const proposal0 = await ballotContract.proposals(0);
+            const proposal1 = await ballotContract.proposals(1);  
+            console.log("Proposal 0 vote count after voting: ", proposal0.voteCount.toString());
+            console.log("Proposal 1 vote count after voting: ", proposal1.voteCount.toString());
+            console.log("Final vote count for proposal 0: ", proposal0.voteCount.toString());
+            console.log("Final vote count for proposal 1: ", proposal1.voteCount.toString());
+            expect(proposal0.voteCount).to.equal(ethers.utils.parseEther("20")); 
+            expect(proposal1.voteCount).to.equal(ethers.utils.parseEther("10")); 
+        });
     });
 });

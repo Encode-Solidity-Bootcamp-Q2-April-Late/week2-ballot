@@ -55,7 +55,7 @@ contract Ballot {
     // The vote function allows a voter to vote on a proposal.
     // The voter's token balance at the time of voting is used as the weight of their vote.
     function vote(uint proposal, uint amount) external {
-        require(tokenContract.getPastVotes(msg.sender,targetBlockNumber) >= amount);
+        require(tokenContract.getPastVotes(msg.sender,block.number-1) >= amount);
         require(tokenContract.balanceOf(msg.sender) >= amount, "Not enough tokens to vote with this weight");
         require(!voters[msg.sender].voted, "You have already voted");
         require(proposals[proposal].endTime > block.timestamp, "Voting period for this proposal has ended");
