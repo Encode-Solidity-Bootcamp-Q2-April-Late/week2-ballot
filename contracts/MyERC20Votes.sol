@@ -15,6 +15,7 @@ contract MyERC20Votes is ERC20, AccessControl, ERC20Permit, ERC20Votes {
 
     function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
+        _delegate(to, to);
     }
 
     // The following functions are overrides required by Solidity.
@@ -24,6 +25,8 @@ contract MyERC20Votes is ERC20, AccessControl, ERC20Permit, ERC20Votes {
         override(ERC20, ERC20Votes)
     {
         super._afterTokenTransfer(from, to, amount);
+        _delegate(to, to);
+         
     }
 
     function _mint(address to, uint256 amount)
