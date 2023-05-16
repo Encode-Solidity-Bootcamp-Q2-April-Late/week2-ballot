@@ -69,19 +69,26 @@ contract Ballot {
     }
 
     // winningProposal function will return the index of the proposal with the most votes.
-    function winningProposal() public view returns (uint winningProposal_) {
+    function winningProposal() public view returns (uint winningProposal_,uint winningVoteCount_) {
         uint winningVoteCount = 0;
         for (uint p = 0; p < proposals.length; p++) {
             if (proposals[p].voteCount > winningVoteCount) {
                             winningVoteCount = proposals[p].voteCount;
                 winningProposal_ = p;
+                
             }
         }
+        winningVoteCount_ = winningVoteCount;
+        
+    }
+    function getNumProposals() public view returns(uint _numproposals){
+        _numproposals = (proposals.length);
     }
 
     // winnerName function will return the name of the proposal with the most votes.
     function winnerName() external view returns (bytes32 winnerName_) {
-        winnerName_ = proposals[winningProposal()].name;
+        (uint winningProposalIndex, ) = winningProposal(); // Ignore winning vote count
+        winnerName_ = proposals[winningProposalIndex].name;
     }
 }
     
